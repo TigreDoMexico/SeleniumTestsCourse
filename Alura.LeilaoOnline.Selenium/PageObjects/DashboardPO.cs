@@ -1,28 +1,36 @@
-﻿using Alura.LeilaoOnline.Selenium.PageObjects.Contract;
-using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 
 namespace Alura.LeilaoOnline.Selenium.PageObjects
 {
-    public class DashboardPO : IProductFormObject
+    public class DashboardPO
     {
         private IWebDriver driver;
+        private By byLogoutLink;
+        private By byMeuPerfilLink;
 
         public DashboardPO(IWebDriver driver)
         {
             this.driver = driver;
+
+            byLogoutLink = By.Id("logout");
+            byMeuPerfilLink = By.Id("meu-perfil");
         }
 
-        public void AcessarHome()
+        public void EfetuarLogout()
         {
-            throw new NotImplementedException();
-        }
+            var linkMeuPerfil = driver.FindElement(byMeuPerfilLink);
+            var linkLogout = driver.FindElement(byLogoutLink);
 
-        public void SubmeterForm()
-        {
-            throw new NotImplementedException();
+            // Criar a Ação
+            IAction acaoLogout = new Actions(driver)
+                .MoveToElement(linkMeuPerfil)
+                .MoveToElement(linkLogout)
+                .Click()
+                .Build();
+
+            // Executar a Ação
+            acaoLogout.Perform();
         }
     }
 }
