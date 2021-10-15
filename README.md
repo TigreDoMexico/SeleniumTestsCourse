@@ -24,7 +24,7 @@ Update-Database
 Apos isso, execute o projeto WebApp
 
 ```bash
-dotnet rum
+dotnet run
 
 ```
 
