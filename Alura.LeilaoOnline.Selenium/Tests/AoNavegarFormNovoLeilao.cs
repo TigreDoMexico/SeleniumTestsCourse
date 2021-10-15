@@ -6,24 +6,17 @@ using Xunit;
 
 namespace Alura.LeilaoOnline.Selenium.Tests
 {
-    [Collection("Chrome Driver")]
-    public class AoNavegarFormNovoLeilao
+    public class AoNavegarFormNovoLeilao : UITest
     {
-        private IWebDriver driver;
         private NovoLeilaoPO register;
 
-        public AoNavegarFormNovoLeilao(UITestFixture fixture)
+        public AoNavegarFormNovoLeilao(UITestFixture fixture) : base(fixture)
         {
             driver = fixture.Driver;
             register = new NovoLeilaoPO(driver);
 
             // ACESSAR COMO ADMIN
-            var loginRegister = new LoginPO(driver);
-
-            loginRegister.AcessarHome();
-            loginRegister.PreencherValores("admin@example.org", "123");
-
-            loginRegister.SubmeterForm();
+            RealizarLogin("admin@example.org", "123");
         }
 
         [Fact]

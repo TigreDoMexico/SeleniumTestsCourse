@@ -8,13 +8,11 @@ using Xunit;
 
 namespace Alura.LeilaoOnline.Selenium.Tests
 {
-    [Collection("Chrome Driver")]
-    public class AoEfetuarRegistro 
+    public class AoEfetuarRegistro : UITest
     {
-        private IWebDriver driver;
         private RegistroPO register;
 
-        public AoEfetuarRegistro(UITestFixture fixture)
+        public AoEfetuarRegistro(UITestFixture fixture) : base(fixture)
         {
             driver = fixture.Driver;
             register = new RegistroPO(driver);

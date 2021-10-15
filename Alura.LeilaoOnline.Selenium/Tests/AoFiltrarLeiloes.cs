@@ -7,31 +7,24 @@ using Xunit;
 
 namespace Alura.LeilaoOnline.Selenium.Tests
 {
-    [Collection("Chrome Driver")]
-    public class AoFiltrarLeiloes
+    public class AoFiltrarLeiloes : UITest
     {
-        private readonly IWebDriver driver;
         private DashboardPO register;
 
-        public AoFiltrarLeiloes(UITestFixture fixture)
+        public AoFiltrarLeiloes(UITestFixture fixture) : base(fixture)
         {
             driver = fixture.Driver;
             register = new DashboardPO(driver);
 
             // ACESSAR ÁREA DOS FILTROS
-            LoginPO loginRegister = new LoginPO(driver);
-
-            loginRegister.AcessarHome();
-            loginRegister.PreencherValores("david.tigre@gmail.com", "123");
-
-            loginRegister.SubmeterForm();
+            RealizarLogin("david.tigre@gmail.com", "123");
         }
 
         [Fact]
         public void DadoInformacoesParaPesquisaDeveMostrarPainelResultado()
         {
             // ARRANGE
-            register.PreencherDadosFiltro(new FiltroLeilaoDTO
+            register.Filtro.PreencherDadosFiltro(new FiltroLeilaoDTO
             {
                 Categorias = new List<string> { "Arte", "Coleção" },
                 Termo = "",
@@ -40,7 +33,7 @@ namespace Alura.LeilaoOnline.Selenium.Tests
             );
 
             // ACT
-            register.SubmeterPesquisa();
+            register.Filtro.SubmeterPesquisa();
 
             // ASSERT
             Assert.Contains("Resultado da pesquisa", driver.PageSource);

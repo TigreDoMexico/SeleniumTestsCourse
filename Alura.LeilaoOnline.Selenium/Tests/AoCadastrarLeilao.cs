@@ -9,13 +9,11 @@ using Xunit;
 
 namespace Alura.LeilaoOnline.Selenium.Tests
 {
-    [Collection("Chrome Driver")]
-    public class AoCadastrarLeilao
+    public class AoCadastrarLeilao : UITest
     {
-        private IWebDriver driver;
         private NovoLeilaoPO register;
 
-        public AoCadastrarLeilao(UITestFixture fixture)
+        public AoCadastrarLeilao(UITestFixture fixture) : base(fixture)
         {
             driver = fixture.Driver;
             register = new NovoLeilaoPO(driver);
@@ -23,10 +21,10 @@ namespace Alura.LeilaoOnline.Selenium.Tests
             // ACESSAR COMO ADMIN
             var loginRegister = new LoginPO(driver);
             
-            loginRegister.AcessarHome();
+            loginRegister.AcessarTelaLogin();
             loginRegister.PreencherValores("admin@example.org", "123");
 
-            loginRegister.SubmeterForm();
+            loginRegister.RealizarLogin();
         }
 
         [Fact]
