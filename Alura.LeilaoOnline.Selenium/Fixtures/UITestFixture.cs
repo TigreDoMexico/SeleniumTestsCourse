@@ -14,6 +14,7 @@ namespace Alura.LeilaoOnline.Selenium.Fixtures
         public UITestFixture()
         {
             Driver = new ChromeDriver(".");
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
 
         // TEAR DOWN

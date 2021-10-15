@@ -7,13 +7,11 @@ using Xunit;
 
 namespace Alura.LeilaoOnline.Selenium.Tests
 {
-    [Collection("Chrome Driver")]
-    public class AoNavegarParaHome
+    public class AoNavegarParaHome : UITest
     {
-        private IWebDriver driver;
         private RegistroPO register;
 
-        public AoNavegarParaHome(UITestFixture fixture)
+        public AoNavegarParaHome(UITestFixture fixture) : base(fixture)
         {
             driver = fixture.Driver;
             register = new RegistroPO(driver);

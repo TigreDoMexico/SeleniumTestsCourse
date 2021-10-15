@@ -1,22 +1,15 @@
 ﻿using Alura.LeilaoOnline.Selenium.Fixtures;
 using Alura.LeilaoOnline.Selenium.PageObjects;
-using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Alura.LeilaoOnline.Selenium.Tests
 {
-    [Collection("Chrome Driver")]
-    public class AoEfetuarLogin
+    public class AoEfetuarLogin : UITest
     {
-        private IWebDriver driver;
         private LoginPO register;
 
-        public AoEfetuarLogin(UITestFixture fixture)
+        public AoEfetuarLogin(UITestFixture fixture) : base(fixture)
         {
-            driver = fixture.Driver;
             register = new LoginPO(driver);
         }
 
@@ -24,11 +17,11 @@ namespace Alura.LeilaoOnline.Selenium.Tests
         public void DadoCredenciaisValidasDeveIrParaDashboard()
         {
             // Arrange
-            register.AcessarHome();
+            register.AcessarTelaLogin();
             register.PreencherValores("david.tigre@gmail.com", "123");
 
             // Act
-            register.SubmeterForm();
+            register.RealizarLogin();
 
             // Assert
             Assert.Contains("Dashboard", driver.Title);
@@ -38,11 +31,11 @@ namespace Alura.LeilaoOnline.Selenium.Tests
         public void DadoCredenciaisInvalidasDeveContinuarLogin()
         {
             // Arrange
-            register.AcessarHome();
+            register.AcessarTelaLogin();
             register.PreencherValores("david.tigre@gmail.com", "");
 
             // Act
-            register.SubmeterForm();
+            register.RealizarLogin();
 
             // Assert
             Assert.Contains("Login", driver.PageSource);
@@ -52,14 +45,12 @@ namespace Alura.LeilaoOnline.Selenium.Tests
         public void DadoLoginRealizadoDeveIrParaHomeNaoLogada()
         {
             // Arrange
-            register.AcessarHome();
-            register.PreencherValores("david.tigre@gmail.com", "123");
-            register.SubmeterForm();
+            RealizarLogin("david.tigre@gmail.com", "123");
 
             var dashboardRegister = new DashboardPO(driver);
 
             // Act - Efetuar Logout
-            dashboardRegister.EfetuarLogout();
+            dashboardRegister.Menu.EfetuarLogout();
 
             // Assert
             Assert.Contains("Próximos Leilões", driver.PageSource);
