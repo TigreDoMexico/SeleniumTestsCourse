@@ -54,11 +54,12 @@ namespace Alura.LeilaoOnline.Selenium.Tests
             // Arrange
             register.AcessarHome();
             register.PreencherValores("david.tigre@gmail.com", "123");
-
             register.SubmeterForm();
 
-            // Act - Efetuar Logout
+            var dashboardRegister = new DashboardPO(driver);
 
+            // Act - Efetuar Logout
+            dashboardRegister.EfetuarLogout();
 
             // Assert
             Assert.Contains("Próximos Leilões", driver.PageSource);
