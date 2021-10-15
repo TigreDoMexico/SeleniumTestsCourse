@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using OpenQA.Selenium.Support.UI;
 using System.Linq;
+using Alura.LeilaoOnline.Selenium.PageObjects.Helpers;
 
 namespace Alura.LeilaoOnline.Selenium.PageObjects
 {
@@ -56,23 +57,10 @@ namespace Alura.LeilaoOnline.Selenium.PageObjects
             driver.FindElement(byInputInicioPregao).SendKeys(data.InicioPregao.ToString("dd/MM/yyyy"));
             driver.FindElement(byInputTerminoPregao).SendKeys(data.TerminoPregao.ToString("dd/MM/yyyy"));
             driver.FindElement(byInputImagem).SendKeys(data.Imagem);
-
-
+            
             // SELECT CATEGORIA
-            //var byCategoriaItemColec = By.XPath("//*[contains(@class, 'dropdown-content select-dropdown']/li[2]/span");
-
-            //driver.FindElement(By.ClassName("select-wrapper")).Click();
-
-            //Thread.Sleep(1000);
-
-            //driver.FindElement(byCategoriaItemColec).Click();
-            //IAction selecionarCategoriaAction = new Actions(driver)
-            //    .Click(selectCategoria)
-            //    .MoveToElement(opcaoCategoria)
-            //    .Click(opcaoCategoria)
-            //    .Build();
-
-            //selecionarCategoriaAction.Perform();
+            var select = new SelectMaterialize(driver, By.ClassName("select-wrapper"));
+            select.SelectByText(data.Categoria);
         }
 
         public void SubmeteFormulario() => driver.FindElement(By.CssSelector("button[type=submit]")).Click();

@@ -43,7 +43,7 @@ namespace Alura.LeilaoOnline.Selenium.Tests
                 InicioPregao = DateTime.Now.AddDays(20),
                 TerminoPregao = DateTime.Now.AddDays(50),
             });
-
+            
             // Act
             register.SubmeteFormulario();
 
