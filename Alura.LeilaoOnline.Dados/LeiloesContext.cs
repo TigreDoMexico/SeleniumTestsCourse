@@ -18,11 +18,11 @@ namespace Alura.LeilaoOnline.WebApp.Dados
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration<Leilao>(new LeilaoEFConfig());
-            modelBuilder.ApplyConfiguration<Lance>(new LanceEFConfig());
-            modelBuilder.ApplyConfiguration<Interessada>(new InteressadaEFConfig());
-            modelBuilder.ApplyConfiguration<Usuario>(new UsuarioEFConfig());
-            modelBuilder.ApplyConfiguration<Favorito>(new FavoritoEFConfig());
+            modelBuilder.ApplyConfiguration(new LeilaoEFConfig());
+            modelBuilder.ApplyConfiguration(new LanceEFConfig());
+            modelBuilder.ApplyConfiguration(new InteressadaEFConfig());
+            modelBuilder.ApplyConfiguration(new UsuarioEFConfig());
+            modelBuilder.ApplyConfiguration(new FavoritoEFConfig());
 
         }
     }

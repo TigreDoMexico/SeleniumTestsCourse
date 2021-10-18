@@ -11,9 +11,6 @@ namespace Alura.LeilaoOnline.Core
         public IEnumerable<Lance> Lances { get; set; }
         public IEnumerable<Favorito> Favoritos { get; set; }
 
-        public Interessada(string nome)
-        {
-            Nome = nome;
-        }
+        public Interessada(string nome) => Nome = nome;
     }
 }

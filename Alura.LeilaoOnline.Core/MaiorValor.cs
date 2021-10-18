@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Alura.LeilaoOnline.Core.Contratos;
+using System.Linq;
 
 namespace Alura.LeilaoOnline.Core
 {

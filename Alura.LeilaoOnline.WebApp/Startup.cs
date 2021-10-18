@@ -1,4 +1,5 @@
 ﻿using Alura.LeilaoOnline.Core;
+using Alura.LeilaoOnline.Core.Contratos;
 using Alura.LeilaoOnline.WebApp.Dados;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,9 +17,7 @@ namespace Alura.LeilaoOnline.WebApp
         {
             Configuration = cfg;
         }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        
         public void ConfigureServices(IServiceCollection services)
         {
             var cnxString = Configuration.GetConnectionString("LeiloesDB");
@@ -26,6 +25,7 @@ namespace Alura.LeilaoOnline.WebApp
             {
                 options.UseSqlServer(cnxString);
             });
+
             services.AddTransient<IModalidadeAvaliacao, MaiorValor>();
             services.AddTransient<IRepositorio<Leilao>, RepositorioLeilao>();
             services.AddTransient<IRepositorio<Interessada>, RepositorioInteressada>();

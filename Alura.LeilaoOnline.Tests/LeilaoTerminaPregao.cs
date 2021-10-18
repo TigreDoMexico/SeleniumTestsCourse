@@ -1,4 +1,5 @@
 ﻿using Alura.LeilaoOnline.Core;
+using Alura.LeilaoOnline.Core.Contratos;
 using Xunit;
 
 namespace Alura.LeilaoOnline.Tests

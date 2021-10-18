@@ -2,9 +2,17 @@
 using System.Linq;
 using System;
 using System.ComponentModel.DataAnnotations;
+using Alura.LeilaoOnline.Core.Contratos;
 
 namespace Alura.LeilaoOnline.Core
 {
+    public enum EstadoLeilao
+    {
+        LeilaoAntesDoPregao,
+        LeilaoEmAndamento,
+        LeilaoFinalizado
+    }
+
     public static class EstadoLeilaoExtensions
     {
         public static string ParaTexto(this EstadoLeilao estado)
@@ -21,13 +29,6 @@ namespace Alura.LeilaoOnline.Core
                     return "Estado não encontrado";
             }
         }
-    }
-
-    public enum EstadoLeilao
-    {
-        LeilaoAntesDoPregao,
-        LeilaoEmAndamento,
-        LeilaoFinalizado
     }
 
     public class Leilao
@@ -53,10 +54,7 @@ namespace Alura.LeilaoOnline.Core
         public Lance Ganhador { get; private set; }
 
         //para uso do EF Core
-        private Leilao()
-        {
-
-        }
+        private Leilao() { }
 
         public Leilao(string titulo, IModalidadeAvaliacao avaliador)
         {
@@ -66,21 +64,18 @@ namespace Alura.LeilaoOnline.Core
             _avaliador = avaliador;
         }
 
-        private bool NovoLanceEhAceito(Interessada cliente, double valor)
-        {
-            return (Estado == EstadoLeilao.LeilaoEmAndamento)
-                && (cliente != _ultimoCliente);
-        }
-
         public void RecebeLance(Interessada cliente, double valor)
         {
-            if (NovoLanceEhAceito(cliente, valor))
+            if (IsNovoLanceAceito(cliente, valor))
             {
                 Lances.Add(new Lance(cliente, valor));
                 _ultimoCliente = cliente;
             }
         }
 
+        private bool IsNovoLanceAceito(Interessada cliente, double valor) => 
+            (Estado == EstadoLeilao.LeilaoEmAndamento) && (cliente != _ultimoCliente);
+        
         public void IniciaPregao()
         {
             Estado = EstadoLeilao.LeilaoEmAndamento;

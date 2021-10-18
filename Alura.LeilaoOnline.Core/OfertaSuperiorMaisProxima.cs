@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Alura.LeilaoOnline.Core.Contratos;
+using System.Linq;
 
 namespace Alura.LeilaoOnline.Core
 {
@@ -6,11 +7,8 @@ namespace Alura.LeilaoOnline.Core
     {
         public double ValorDestino { get; }
 
-        public OfertaSuperiorMaisProxima(double valorDestino)
-        {
-            ValorDestino = valorDestino;
-        }
-
+        public OfertaSuperiorMaisProxima(double valorDestino) => ValorDestino = valorDestino;
+        
         public Lance Avalia(Leilao leilao)
         {
             return leilao.Lances
