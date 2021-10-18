@@ -45,6 +45,7 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
                 }
                 ModelState.AddModelError("usuarioInvalido", "Usuário não encontrado");
             }
+ 
             return View(model);
         }
 

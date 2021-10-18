@@ -19,9 +19,7 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
         private readonly IRepositorio<Leilao> _repoLeilao;
         private readonly IRepositorio<Interessada> _repoInteressada;
 
-        public InteressadasController(
-            IRepositorio<Leilao> repoLeilao, 
-            IRepositorio<Interessada> repoInteressada)
+        public InteressadasController(IRepositorio<Leilao> repoLeilao, IRepositorio<Interessada> repoInteressada)
         {
             _repoLeilao = repoLeilao;
             _repoInteressada = repoInteressada;
@@ -68,8 +66,10 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
             {
                 Leilao leilao = _repoLeilao.BuscarPorId(model.LeilaoId);
                 Interessada interessada = _repoInteressada.BuscarPorId(model.UsuarioLogadoId);
+
                 leilao.RecebeLance(interessada, model.Valor);
-                _repoLeilao.Alterar(leilao); //?
+                _repoLeilao.Alterar(leilao);
+
                 return Ok();
             }
             return BadRequest();
@@ -79,6 +79,7 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
         public IActionResult SeguirLeilao(FavoritoViewModel model)
         {
             var leilao = _repoLeilao.BuscarPorId(model.IdLeilao);
+
             if (leilao != null)
             {
                 var favorito = new Favorito
@@ -86,10 +87,13 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
                     IdLeilao = model.IdLeilao,
                     IdInteressada = model.IdInteressada
                 };
+
                 leilao.Seguidores.Add(favorito);
                 _repoLeilao.Alterar(leilao);
+
                 return Ok();
             }
+
             return NotFound();
         }
 
@@ -97,6 +101,7 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
         public IActionResult AbandonarLeilao(FavoritoViewModel model)
         {
             var leilao = _repoLeilao.BuscarPorId(model.IdLeilao);
+
             if (leilao != null)
             {
                 var favorito = leilao.Seguidores
@@ -107,6 +112,7 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
                 _repoLeilao.Alterar(leilao);
                 return Ok();
             }
+
             return NotFound();
         }
     }

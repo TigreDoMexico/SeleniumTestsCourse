@@ -22,8 +22,10 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
                 //registrar usuário/interessado
                 var usuario = new Usuario { Email = model.Email, Senha = model.Password, Interessada = new Interessada(model.Nome) };
                 _repo.Incluir(usuario);
+
                 return RedirectToAction("Agradecimento");
             }
+
             return BadRequest();
         }
 

@@ -12,9 +12,7 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
         private readonly IRepositorio<Leilao> _repo;
         private readonly IRepositorio<Interessada> _repoInt;
 
-        public HomeController(
-            IRepositorio<Leilao> repositorio,
-            IRepositorio<Interessada> repoInt)
+        public HomeController(IRepositorio<Leilao> repositorio, IRepositorio<Interessada> repoInt)
         {
             _repo = repositorio;
             _repoInt = repoInt;
@@ -75,6 +73,7 @@ namespace Alura.LeilaoOnline.WebApp.Controllers
             var leiloes = _repo.Todos
                 .Where(l => l.Categoria == id)
                 .Select(l => l.ToViewModel());
+
             return View("Index", leiloes);
         }
 

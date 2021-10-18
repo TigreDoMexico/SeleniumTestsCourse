@@ -1,5 +1,6 @@
 ﻿using Alura.LeilaoOnline.Core;
 using Alura.LeilaoOnline.Core.Contratos;
+using Alura.LeilaoOnline.WebApp.Configuracoes;
 using Alura.LeilaoOnline.WebApp.Dados;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,16 +21,10 @@ namespace Alura.LeilaoOnline.WebApp
         
         public void ConfigureServices(IServiceCollection services)
         {
-            var cnxString = Configuration.GetConnectionString("LeiloesDB");
-            services.AddDbContext<LeiloesContext>(options =>
-            {
-                options.UseSqlServer(cnxString);
-            });
+            services.AddDatabaseDependency(Configuration);
 
-            services.AddTransient<IModalidadeAvaliacao, MaiorValor>();
-            services.AddTransient<IRepositorio<Leilao>, RepositorioLeilao>();
-            services.AddTransient<IRepositorio<Interessada>, RepositorioInteressada>();
-            services.AddTransient<IRepositorio<Usuario>, RepositorioUsuario>();
+            services.AddDependencies();
+
             services.AddSession();
             services.AddMvc();
         }
